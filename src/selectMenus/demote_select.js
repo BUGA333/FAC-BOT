@@ -27,8 +27,17 @@ module.exports = {
             // Update roles
             if (targetMember.currentRoleId) {
                 await guildMember.roles.remove(targetMember.currentRoleId.discordRoleId).catch(console.error);
+                // Remove old extra role if it existed
+                if (targetMember.currentRoleId.extraRoleId) {
+                    await guildMember.roles.remove(targetMember.currentRoleId.extraRoleId).catch(console.error);
+                }
             }
+            
             await guildMember.roles.add(newRole.discordRoleId).catch(console.error);
+            // Add new extra role if it exists
+            if (newRole.extraRoleId) {
+                await guildMember.roles.add(newRole.extraRoleId).catch(console.error);
+            }
 
             // Update nickname
             const nickname = `[${newRole.tag || newRole.name}] ${targetMember.rpName} | ${targetMember.rpId}`;

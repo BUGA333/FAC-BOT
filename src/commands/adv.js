@@ -72,8 +72,18 @@ module.exports = {
             if (lowerRole) {
                 const guildMember = await interaction.guild.members.fetch(target.id).catch(() => null);
                 if (guildMember) {
-                    if (targetMember.currentRoleId) await guildMember.roles.remove(targetMember.currentRoleId.discordRoleId).catch(() => {});
+                    if (targetMember.currentRoleId) {
+                        await guildMember.roles.remove(targetMember.currentRoleId.discordRoleId).catch(() => {});
+                        // Remove old extra role
+                        if (targetMember.currentRoleId.extraRoleId) {
+                            await guildMember.roles.remove(targetMember.currentRoleId.extraRoleId).catch(() => {});
+                        }
+                    }
                     await guildMember.roles.add(lowerRole.discordRoleId).catch(() => {});
+                    // Add new extra role
+                    if (lowerRole.extraRoleId) {
+                        await guildMember.roles.add(lowerRole.extraRoleId).catch(() => {});
+                    }
                     const nickname = `[${lowerRole.tag || lowerRole.name}] ${targetMember.rpName} | ${targetMember.rpId}`;
                     await guildMember.setNickname(nickname).catch(() => {});
                 }

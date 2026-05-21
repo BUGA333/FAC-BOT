@@ -107,11 +107,19 @@ module.exports = {
                 .setStyle(TextInputStyle.Short)
                 .setRequired(true);
 
+            const extraRoleInput = new TextInputBuilder()
+                .setCustomId('role_extra')
+                .setLabel('ID do Cargo Extra (Opcional)')
+                .setPlaceholder('ID de um segundo cargo para este posto')
+                .setStyle(TextInputStyle.Short)
+                .setRequired(false);
+
             modal.addComponents(
                 new ActionRowBuilder().addComponents(nameInput),
                 new ActionRowBuilder().addComponents(roleIdInput),
                 new ActionRowBuilder().addComponents(levelInput),
-                new ActionRowBuilder().addComponents(tagInput)
+                new ActionRowBuilder().addComponents(tagInput),
+                new ActionRowBuilder().addComponents(extraRoleInput)
             );
 
             await interaction.showModal(modal);

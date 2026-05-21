@@ -24,6 +24,11 @@ module.exports = {
             // Add role
             await guildMember.roles.add(request.roleId.discordRoleId).catch(console.error);
             
+            // Add extra role if configured
+            if (request.roleId.extraRoleId) {
+                await guildMember.roles.add(request.roleId.extraRoleId).catch(console.error);
+            }
+
             // Add auto-roles
             const config = await Config.findOne({ guildId: interaction.guildId });
             if (config && config.roles.autoRoles.length > 0) {
