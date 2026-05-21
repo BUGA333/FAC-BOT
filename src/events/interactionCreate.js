@@ -24,8 +24,7 @@ module.exports = {
 
             // Handle dynamic custom IDs (e.g., "approve_12345")
             if (!button) {
-                const baseId = customId.split('_')[0];
-                button = Array.from(client.buttons.values()).find(b => b.customId.startsWith(baseId) && b.dynamic);
+                button = Array.from(client.buttons.values()).find(b => b.dynamic && customId.startsWith(b.customId));
             }
 
             if (!button) return;
@@ -39,8 +38,7 @@ module.exports = {
             let modal = client.modals.get(customId);
 
             if (!modal) {
-                const baseId = customId.split('_')[0];
-                modal = Array.from(client.modals.values()).find(m => m.customId.startsWith(baseId) && m.dynamic);
+                modal = Array.from(client.modals.values()).find(m => m.dynamic && customId.startsWith(m.customId));
             }
 
             if (!modal) return;
@@ -49,13 +47,12 @@ module.exports = {
             } catch (error) {
                 console.error(error);
             }
-        } else if (interaction.isStringSelectMenu()) {
+        } else if (interaction.isAnySelectMenu()) {
             let customId = interaction.customId;
             let selectMenu = client.selectMenus.get(customId);
 
             if (!selectMenu) {
-                const baseId = customId.split('_')[0];
-                selectMenu = Array.from(client.selectMenus.values()).find(s => s.customId.startsWith(baseId) && s.dynamic);
+                selectMenu = Array.from(client.selectMenus.values()).find(s => s.dynamic && customId.startsWith(s.customId));
             }
 
             if (!selectMenu) return;
