@@ -7,6 +7,7 @@ module.exports = {
         const name = interaction.fields.getTextInputValue('role_name');
         const discordRoleId = interaction.fields.getTextInputValue('role_id');
         const level = parseInt(interaction.fields.getTextInputValue('role_level'));
+        const tag = interaction.fields.getTextInputValue('role_tag');
 
         if (isNaN(level)) {
             return interaction.reply({ content: '❌ O nível hierárquico deve ser um número!', ephemeral: true });
@@ -17,12 +18,13 @@ module.exports = {
                 guildId: interaction.guildId,
                 name,
                 discordRoleId,
-                level
+                level,
+                tag
             });
 
             const embed = createEmbed(
                 '✅ CARGO ADICIONADO',
-                `O cargo **${name}** foi adicionado com sucesso!\nID: ${discordRoleId}\nNível: ${level}`
+                `O cargo **${name}** foi adicionado com sucesso!\nID: ${discordRoleId}\nNível: ${level}\nTag: [${tag}]`
             );
 
             await interaction.reply({ embeds: [embed], ephemeral: true });

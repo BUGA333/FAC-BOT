@@ -30,8 +30,8 @@ module.exports = {
                 await guildMember.roles.add(config.roles.autoRoles).catch(console.error);
             }
 
-            // Change nickname: [CARGO] Nome RP | ID
-            const nickname = `[${request.roleId.name}] ${request.rpName} | ${request.rpId}`;
+            // Change nickname: [TAG] Nome RP | ID
+            const nickname = `[${request.roleId.tag || request.roleId.name}] ${request.rpName} | ${request.rpId}`;
             await guildMember.setNickname(nickname).catch(console.error);
 
             // Save to Member DB

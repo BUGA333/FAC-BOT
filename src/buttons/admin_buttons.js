@@ -100,10 +100,18 @@ module.exports = {
                 .setStyle(TextInputStyle.Short)
                 .setRequired(true);
 
+            const tagInput = new TextInputBuilder()
+                .setCustomId('role_tag')
+                .setLabel('Abreviação (Tag no Nome)')
+                .setPlaceholder('Ex: MEM (Ficará [MEM])')
+                .setStyle(TextInputStyle.Short)
+                .setRequired(true);
+
             modal.addComponents(
                 new ActionRowBuilder().addComponents(nameInput),
                 new ActionRowBuilder().addComponents(roleIdInput),
-                new ActionRowBuilder().addComponents(levelInput)
+                new ActionRowBuilder().addComponents(levelInput),
+                new ActionRowBuilder().addComponents(tagInput)
             );
 
             await interaction.showModal(modal);

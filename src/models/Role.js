@@ -5,6 +5,7 @@ const roleSchema = new mongoose.Schema({
     name: { type: String, required: true },
     discordRoleId: { type: String, required: true },
     level: { type: Number, required: true }, // Higher number = higher rank
+    tag: { type: String, default: "" }, // Nickname tag like [MEM]
     permissions: {
         canPromote: { type: Boolean, default: false },
         canDemote: { type: Boolean, default: false },

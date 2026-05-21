@@ -31,7 +31,7 @@ module.exports = {
             await guildMember.roles.add(newRole.discordRoleId).catch(console.error);
 
             // Update nickname
-            const nickname = `[${newRole.name}] ${targetMember.rpName} | ${targetMember.rpId}`;
+            const nickname = `[${newRole.tag || newRole.name}] ${targetMember.rpName} | ${targetMember.rpId}`;
             await guildMember.setNickname(nickname).catch(console.error);
         }
 

@@ -74,7 +74,7 @@ module.exports = {
                 if (guildMember) {
                     if (targetMember.currentRoleId) await guildMember.roles.remove(targetMember.currentRoleId.discordRoleId).catch(() => {});
                     await guildMember.roles.add(lowerRole.discordRoleId).catch(() => {});
-                    const nickname = `[${lowerRole.name}] ${targetMember.rpName} | ${targetMember.rpId}`;
+                    const nickname = `[${lowerRole.tag || lowerRole.name}] ${targetMember.rpName} | ${targetMember.rpId}`;
                     await guildMember.setNickname(nickname).catch(() => {});
                 }
                 const oldRoleName = targetMember.currentRoleId ? targetMember.currentRoleId.name : 'Nenhum';
