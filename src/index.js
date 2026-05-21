@@ -1,21 +1,20 @@
-const express = require("express");
-const app = express();
-
-app.get("/", (req, res) => {
-  res.send("FAC-BOT ONLINE");
-});
-
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Servidor web iniciado na porta ${PORT}`);
-});
 require('dotenv').config();
 const { Client, GatewayIntentBits, Collection, Partials } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 const connectDB = require('./database/db');
+const express = require("express");
 require('colors');
+
+const app = express();
+app.get("/", (req, res) => {
+  res.send("FAC-BOT ONLINE");
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(` [WEB] Servidor iniciado na porta ${PORT}`.magenta);
+});
 
 const client = new Client({
     intents: [
@@ -57,4 +56,8 @@ client.login(process.env.TOKEN).then(() => {
     loadHandlers();
 }).catch(err => {
     console.error(` [CLIENT] Erro ao logar: ${err.message}`.red);
+});
+
+process.on('unhandledRejection', error => {
+	console.error('Unhandled promise rejection:', error);
 });

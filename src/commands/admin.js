@@ -24,7 +24,8 @@ module.exports = {
         const row2 = new ActionRowBuilder()
             .addComponents(
                 createButton('admin_setup_panel', 'Enviar Painel Setagem', ButtonStyle.Success, '📋'),
-                createButton('admin_history', 'Histórico Global', ButtonStyle.Primary, '📜')
+                createButton('admin_messages', 'Mensagens', ButtonStyle.Primary, '✉️'),
+                createButton('admin_history', 'Histórico Global', ButtonStyle.Secondary, '📜')
             );
 
         await interaction.reply({ embeds: [embed], components: [row1, row2], ephemeral: true });

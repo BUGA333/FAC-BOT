@@ -31,7 +31,10 @@ module.exports = {
             try {
                 await button.execute(interaction, client);
             } catch (error) {
-                console.error(error);
+                console.error(`Error executing button ${customId}:`, error);
+                if (!interaction.replied && !interaction.deferred) {
+                    await interaction.reply({ content: 'Houve um erro ao processar este botão.', ephemeral: true }).catch(() => {});
+                }
             }
         } else if (interaction.isModalSubmit()) {
             let customId = interaction.customId;
@@ -45,7 +48,10 @@ module.exports = {
             try {
                 await modal.execute(interaction, client);
             } catch (error) {
-                console.error(error);
+                console.error(`Error executing modal ${customId}:`, error);
+                if (!interaction.replied && !interaction.deferred) {
+                    await interaction.reply({ content: 'Houve um erro ao processar este formulário.', ephemeral: true }).catch(() => {});
+                }
             }
         } else if (interaction.isAnySelectMenu()) {
             let customId = interaction.customId;
@@ -59,7 +65,10 @@ module.exports = {
             try {
                 await selectMenu.execute(interaction, client);
             } catch (error) {
-                console.error(error);
+                console.error(`Error executing select menu ${customId}:`, error);
+                if (!interaction.replied && !interaction.deferred) {
+                    await interaction.reply({ content: 'Houve um erro ao processar esta seleção.', ephemeral: true }).catch(() => {});
+                }
             }
         }
     },

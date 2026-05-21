@@ -273,6 +273,37 @@ module.exports = {
             return this.execute(interaction, client); // Refresh panel
         }
 
+        if (customId === 'admin_messages') {
+            const config = await Config.findOne({ guildId: interaction.guildId }) || await Config.create({ guildId: interaction.guildId });
+            
+            const modal = new ModalBuilder()
+                .setCustomId('modal_admin_messages')
+                .setTitle('Personalizar Painel de Setagem');
+
+            const titleInput = new TextInputBuilder()
+                .setCustomId('setagem_title')
+                .setLabel('Título do Painel')
+                .setPlaceholder('Ex: 📋 SISTEMA DE SETAGEM')
+                .setValue(config.messages.setagemTitle)
+                .setStyle(TextInputStyle.Short)
+                .setRequired(true);
+
+            const descInput = new TextInputBuilder()
+                .setCustomId('setagem_desc')
+                .setLabel('Descrição do Painel')
+                .setPlaceholder('Digite a mensagem que aparecerá no painel...')
+                .setValue(config.messages.setagemDescription)
+                .setStyle(TextInputStyle.Paragraph)
+                .setRequired(true);
+
+            modal.addComponents(
+                new ActionRowBuilder().addComponents(titleInput),
+                new ActionRowBuilder().addComponents(descInput)
+            );
+
+            await interaction.showModal(modal);
+        }
+
         if (customId === 'admin_history') {
             const History = require('../models/History');
             const logs = await History.find({ guildId: interaction.guildId }).sort({ date: -1 }).limit(10);
